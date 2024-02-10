@@ -1,6 +1,42 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 
 const Login1 = () => {
+    const [input,setInput]=new useState(
+        {
+            "email":"",
+            "password":""
+        
+    }
+    )
+    const inputHandler=(event)=>{
+        setInput({...input,[event.target.name]:event.target.value})
+    }
+    const readValues=()=>{
+        console.log(input)
+        axios.post("http://localhost:3001/api/blog/signin",input).then(
+            (response)=>{
+                console.log(response.data)
+                if (response.data.status=="success") 
+                {
+                    alert("successfully Added")
+                    setInput({
+                        "email":"",
+                        "password":""
+                    
+                    }
+
+
+                    )
+                    
+                } else {
+                    alert("something went wrong")
+                    
+                }
+            }
+        )
+
+    }
   return (
     <div>
 
